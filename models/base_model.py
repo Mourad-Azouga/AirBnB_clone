@@ -19,13 +19,9 @@ class BaseModel:
         date_format = '%Y-%m-%dT%H:%M:%S.%f'
         if kwargs:
             for key, value in kwargs.items():
-                if "created_at" == key:
-                    self.created_at = datetime.strptime(value, date_format)
-                elif "updated_at" == key:
-                    self.updated_at = datetime.strptime(value, date_format)
-                elif "__class__" == key:
-                    pass
-                else:
+                if key == "created_at" or key == "updated_at":
+                    setattr(self, key, datetime.strptime(value, date_format))
+                elif key != "__class__":
                     setattr(self, key, value)
         else:
             self.id = str(uuid4())
