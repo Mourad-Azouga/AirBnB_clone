@@ -1,7 +1,6 @@
 from datetime import datetime
 from uuid import uuid4
-from models import storage
-
+import models
 class BaseModel:
     """Parent class for AirBnB clone project
     Methods:
@@ -27,7 +26,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
-            storage.new(self)
+            models.storage.new(self)
 
 
     def __str__(self):
@@ -41,7 +40,7 @@ class BaseModel:
         Update current datetime
         """
         self.updated_at = datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self):
         """
