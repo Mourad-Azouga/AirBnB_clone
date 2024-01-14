@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import json
 from os.path import exists
 from models.base_model import BaseModel
