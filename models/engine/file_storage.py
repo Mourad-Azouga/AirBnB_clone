@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-
+'''AirBnB clone project File Storage'''
 import json
-from os.path import exists
 from models.base_model import BaseModel
+
+
 
 class FileStorage:
     """ This is a storage engine for AirBnB clone project
@@ -16,36 +17,37 @@ class FileStorage:
         __objects (dict): A dictionary of instantiated objects.
         class_dict (dict): A dictionary of all the classes.
     """
-    __file_path = "file.json"
+
+    __file_path = 'file.json'
     __objects = {}
+    class_dict = {"BaseModel": BaseModel}
 
     def all(self):
-        """Returns the dictionary __objects"""
+        '''Return dictionary of <class>.<id> : object instance'''
         return self.__objects
 
     def new(self, obj):
-        """Sets in __objects the obj with key <obj class name>.id"""
+        '''Set new __objects to existing dictionary of instances'''
         if obj:
             key = '{}.{}'.format(obj.__class__.__name__, obj.id)
             self.__objects[key] = obj
 
     def save(self):
-        """Serializes and slash or save __objects to the JSON file (path: __file_path)"""
-        serialized_objects = {}
-        for key, obj in self.__objects.items():
-            serialized_objects[key] = obj.to_dict()
+        """Save/serialize obj dictionaries to json file"""
+        obj_dict = {}
 
-        with open(self.__file_path, 'w', encoding='utf-8') as file:
-            json.dump(serialized_objects, file)
+        for key, obj in self.__objects.items():
+            obj_dict[key] = obj.to_dict()
+        with open(self.__file_path, 'w', encoding="UTF-8") as f:
+            json.dump(obj_dict, f)
 
     def reload(self):
-        """Deserializes and slash or converts the JSON file to __objects if true"""
-        if exists(self.__file_path):
-            with open(self.__file_path, 'r', encoding='utf-8') as file:
-                loaded_objects = json.load(file)
-
-            for key, value in loaded_objects.items():
-                class_name, obj_id = key.split('.')
-                class_name = "BaseModel" if class_name == "BaseModel" else class_name
-                obj = eval(class_name)(**value)
+        """Deserialize/convert obj dicts back to instances, if it exists"""
+        try:
+            with open(self.__file_path, 'r', encoding="UTF-8") as f:
+                new_obj_dict = json.load(f)
+            for key, value in new_obj_dict.items():
+                obj = self.class_dict[value['__class__']](**value)
                 self.__objects[key] = obj
+        except FileNotFoundError:
+            pass
