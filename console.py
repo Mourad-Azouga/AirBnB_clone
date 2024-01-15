@@ -9,7 +9,9 @@ class HBNBCommand(cmd.Cmd):
         prompt (str): The command prompt.
     """
     prompt = "(hbnb) "
-
+    __classes = {
+        "BaseModel"
+    }
     def do_quit(self, arg):
         """
         Quit command to exit the program.
@@ -22,6 +24,9 @@ class HBNBCommand(cmd.Cmd):
         """
         print("")
         return True
-
+    
+    def emptyline(self):
+        """Do nothing upon receiving an empty line."""
+        pass
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
