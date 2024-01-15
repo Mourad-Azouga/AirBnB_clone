@@ -1,20 +1,13 @@
 #!/usr/bin/python3
 """Defines the HBnB console."""
 import cmd
-import re
-from shlex import split
-from models import storage
-from models.base_model import BaseModel
 
 class HBNBCommand(cmd.Cmd):
     """Defines the HolbertonBnB command interpreter.
     Attributes:
         prompt (str): The command prompt.
     """
-
     prompt = "(hbnb) "
-
-
     def do_quit(self, arg):
         """Quit command to exit the program."""
         return True

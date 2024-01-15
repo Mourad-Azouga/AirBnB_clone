@@ -2,7 +2,6 @@
 from datetime import datetime
 from uuid import uuid4
 import models
-
 """
 Parent class to all classes in the AirBnB clone project
 """
