@@ -2,7 +2,7 @@
 """Defines the HBnB user."""
 from base_model import BaseModel
 import json
-class user(BaseModel):
+class User(BaseModel):
     """
     This is a user class that has 
     email-
