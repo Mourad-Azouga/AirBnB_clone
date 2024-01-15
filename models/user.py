@@ -1,15 +1,13 @@
 #!/usr/bin/python3
-"""Defines the HBnB user."""
-from base_model import BaseModel
+"""user class, subclass of BaseModel
+"""
+
+from models.base_model import BaseModel
 import json
+
+
 class User(BaseModel):
-    """
-    This is a user class that has 
-    email-
-    password-
-    first_name
-    last_name
-    """
+    """This is a user class that inherits from Basemodel"""
     email = ""
     password = ""
     first_name = ""
